@@ -18,6 +18,9 @@ namespace Nop.Core.Domain.News
         /// </summary>
         public int LanguageId { get; set; }
 
+        public int NewsCategoryId { get; set; }
+
+
         /// <summary>
         /// Gets or sets the news title
         /// </summary>
@@ -95,6 +98,9 @@ namespace Nop.Core.Domain.News
             protected set { _newsComments = value; }
         }
         
+
+        public virtual NewsCategory NewsCategory { get; set; }
+
         /// <summary>
         /// Gets or sets the language
         /// </summary>

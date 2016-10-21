@@ -19,7 +19,7 @@ using Nop.Web.Framework.Mvc;
 
 namespace Nop.Admin.Controllers
 {
-    public partial class NewsController : BaseAdminController
+    public partial class NewsCategoryController : BaseAdminController
 	{
 		#region Fields
 
@@ -32,12 +32,13 @@ namespace Nop.Admin.Controllers
         private readonly IUrlRecordService _urlRecordService;
         private readonly IStoreService _storeService;
         private readonly IStoreMappingService _storeMappingService;
+       
         
 		#endregion
 
 		#region Constructors
 
-        public NewsController(INewsService newsService,
+        public NewsCategoryController(INewsService newsService,
             INewsCategoryService newsCategoryService,
             ILanguageService languageService,
             IDateTimeHelper dateTimeHelper,
@@ -250,33 +251,11 @@ namespace Nop.Admin.Controllers
             var model = newsItem.ToModel();
             model.StartDate = newsItem.StartDateUtc;
             model.EndDate = newsItem.EndDateUtc;
-
-            // Categories
-            PrepareCategoriesModel(model);
-
             //languages
             PrepareLanguagesModel(model);
             //Store
             PrepareStoresMappingModel(model, newsItem, false);
             return View(model);
-        }
-
-        [NonAction]
-        protected virtual void PrepareCategoriesModel(NewsItemModel model)
-        {
-            if (model == null)
-                throw new ArgumentNullException("model");
-
-            var newsCategories = _newsCategoryService.GetAllNewsCategory().ToList();
-            foreach (var category in newsCategories)
-            {
-                model.AvailableCategories.Add(new SelectListItem
-                {
-                    Text = category.Title,
-                    Value = category.Id.ToString(),
-                    Selected = model.NewsCategoryId == category.Id
-                });
-            }
         }
 
         [HttpPost, ParameterBasedOnFormName("save-continue", "continueEditing")]
@@ -293,7 +272,6 @@ namespace Nop.Admin.Controllers
             if (ModelState.IsValid)
             {
                 newsItem = model.ToEntity(newsItem);
-                newsItem.NewsCategoryId = model.NewsCategoryId;
                 newsItem.StartDateUtc = model.StartDate;
                 newsItem.EndDateUtc = model.EndDate;
                 _newsService.UpdateNews(newsItem);

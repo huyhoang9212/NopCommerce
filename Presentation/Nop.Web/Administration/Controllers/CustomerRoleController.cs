@@ -23,10 +23,10 @@ using Nop.Web.Framework.Kendoui;
 namespace Nop.Admin.Controllers
 {
     public partial class CustomerRoleController : BaseAdminController
-	{
-		#region Fields
+    {
+        #region Fields
 
-		private readonly ICustomerService _customerService;
+        private readonly ICustomerService _customerService;
         private readonly ILocalizationService _localizationService;
         private readonly ICustomerActivityService _customerActivityService;
         private readonly IPermissionService _permissionService;
@@ -38,12 +38,12 @@ namespace Nop.Admin.Controllers
         private readonly IWorkContext _workContext;
         private readonly ICacheManager _cacheManager;
 
-		#endregion
+        #endregion
 
-		#region Constructors
+        #region Constructors
 
         public CustomerRoleController(ICustomerService customerService,
-            ILocalizationService localizationService, 
+            ILocalizationService localizationService,
             ICustomerActivityService customerActivityService,
             IPermissionService permissionService,
             IProductService productService,
@@ -51,9 +51,9 @@ namespace Nop.Admin.Controllers
             IManufacturerService manufacturerService,
             IStoreService storeService,
             IVendorService vendorService,
-            IWorkContext workContext, 
+            IWorkContext workContext,
             ICacheManager cacheManager)
-		{
+        {
             this._customerService = customerService;
             this._localizationService = localizationService;
             this._customerActivityService = customerActivityService;
@@ -65,9 +65,9 @@ namespace Nop.Admin.Controllers
             this._vendorService = vendorService;
             this._workContext = workContext;
             this._cacheManager = cacheManager;
-		}
+        }
 
-		#endregion 
+        #endregion
 
         #region Utilities
 
@@ -92,37 +92,37 @@ namespace Nop.Admin.Controllers
             return RedirectToAction("List");
         }
 
-		public ActionResult List()
+        public ActionResult List()
         {
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageCustomers))
                 return AccessDeniedView();
-            
-			return View();
-		}
 
-		[HttpPost]
-		public ActionResult List(DataSourceRequest command)
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult List(DataSourceRequest command)
         {
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageCustomers))
                 return AccessDeniedView();
-            
+
             var customerRoles = _customerService.GetAllCustomerRoles(true);
             var gridModel = new DataSourceResult
-			{
+            {
                 Data = customerRoles.Select(PrepareCustomerRoleModel),
                 Total = customerRoles.Count()
-			};
-			return new JsonResult
-			{
-				Data = gridModel
-			};
-		}
+            };
+            return new JsonResult
+            {
+                Data = gridModel
+            };
+        }
 
         public ActionResult Create()
         {
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageCustomers))
                 return AccessDeniedView();
-            
+
             var model = new CustomerRoleModel();
             //default values
             model.Active = true;
@@ -134,7 +134,7 @@ namespace Nop.Admin.Controllers
         {
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageCustomers))
                 return AccessDeniedView();
-            
+
             if (ModelState.IsValid)
             {
                 var customerRole = model.ToEntity();
@@ -144,33 +144,34 @@ namespace Nop.Admin.Controllers
                 _customerActivityService.InsertActivity("AddNewCustomerRole", _localizationService.GetResource("ActivityLog.AddNewCustomerRole"), customerRole.Name);
 
                 SuccessNotification(_localizationService.GetResource("Admin.Customers.CustomerRoles.Added"));
-                return continueEditing ? RedirectToAction("Edit", new { id = customerRole.Id }) : RedirectToAction("List");
+                return continueEditing ? RedirectToAction("Edit", new { id = customerRole.Id })
+                    : RedirectToAction("List");
             }
 
             //If we got this far, something failed, redisplay form
             return View(model);
         }
 
-		public ActionResult Edit(int id)
+        public ActionResult Edit(int id)
         {
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageCustomers))
                 return AccessDeniedView();
-            
+
             var customerRole = _customerService.GetCustomerRoleById(id);
             if (customerRole == null)
                 //No customer role found with the specified id
                 return RedirectToAction("List");
-		    
+
             var model = PrepareCustomerRoleModel(customerRole);
             return View(model);
-		}
+        }
 
         [HttpPost, ParameterBasedOnFormName("save-continue", "continueEditing")]
         public ActionResult Edit(CustomerRoleModel model, bool continueEditing)
         {
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageCustomers))
                 return AccessDeniedView();
-            
+
             var customerRole = _customerService.GetCustomerRoleById(model.Id);
             if (customerRole == null)
                 //No customer role found with the specified id
@@ -189,7 +190,7 @@ namespace Nop.Admin.Controllers
                     if (SystemCustomerRoleNames.Registered.Equals(customerRole.SystemName, StringComparison.InvariantCultureIgnoreCase) &&
                         model.PurchasedWithProductId > 0)
                         throw new NopException(_localizationService.GetResource("Admin.Customers.CustomerRoles.Fields.PurchasedWithProduct.Registered"));
-                    
+
                     customerRole = model.ToEntity(customerRole);
                     _customerService.UpdateCustomerRole(customerRole);
 
@@ -197,7 +198,7 @@ namespace Nop.Admin.Controllers
                     _customerActivityService.InsertActivity("EditCustomerRole", _localizationService.GetResource("ActivityLog.EditCustomerRole"), customerRole.Name);
 
                     SuccessNotification(_localizationService.GetResource("Admin.Customers.CustomerRoles.Updated"));
-                    return continueEditing ? RedirectToAction("Edit", new { id = customerRole.Id}) : RedirectToAction("List");
+                    return continueEditing ? RedirectToAction("Edit", new { id = customerRole.Id }) : RedirectToAction("List");
                 }
 
                 //If we got this far, something failed, redisplay form
@@ -215,7 +216,7 @@ namespace Nop.Admin.Controllers
         {
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageCustomers))
                 return AccessDeniedView();
-            
+
             var customerRole = _customerService.GetCustomerRoleById(id);
             if (customerRole == null)
                 //No customer role found with the specified id
@@ -237,7 +238,7 @@ namespace Nop.Admin.Controllers
                 return RedirectToAction("Edit", new { id = customerRole.Id });
             }
 
-		}
+        }
 
 
 
@@ -336,6 +337,6 @@ namespace Nop.Admin.Controllers
             return View(model);
         }
 
-		#endregion
+        #endregion
     }
 }

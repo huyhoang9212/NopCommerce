@@ -18,6 +18,7 @@ namespace Nop.Admin.Models.News
 
             SelectedStoreIds = new List<int>();
             AvailableStores = new List<SelectListItem>();
+            AvailableCategories = new List<SelectListItem>();
         }
 
         [NopResourceDisplayName("Admin.ContentManagement.News.NewsItems.Fields.Language")]
@@ -81,5 +82,13 @@ namespace Nop.Admin.Models.News
 
         [NopResourceDisplayName("Admin.ContentManagement.News.NewsItems.Fields.CreatedOn")]
         public DateTime CreatedOn { get; set; }
+
+        [Display(Name ="Category")]
+        public string CategoryName { get; set; }
+
+        [Display(Name = "Category Id")]
+        public int NewsCategoryId { get; set; }
+
+        public IList<SelectListItem> AvailableCategories { get; set; }
     }
 }

@@ -18,7 +18,9 @@ function showThrobber(message) {
     }, 1000);
 }
 
+
 $(document).ready(function () {
+    
     $('.multi-store-override-option').each(function (k, v) {
         checkOverriddenStoreValue(v, $(v).attr('data-for-input-selector'));
     });

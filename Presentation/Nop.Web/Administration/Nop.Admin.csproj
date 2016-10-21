@@ -156,6 +156,7 @@
     <Compile Include="Controllers\BaseAdminController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\AddressAttributeController.cs" />
+    <Compile Include="Controllers\NewsCategoryController.cs" />
     <Compile Include="Controllers\PreferencesController.cs" />
     <Compile Include="Controllers\CustomerAttributeController.cs" />
     <Compile Include="Controllers\CheckoutAttributeController.cs" />
@@ -245,6 +246,7 @@
     <Compile Include="Models\Localization\LanguageResourcesListModel.cs" />
     <Compile Include="Models\Messages\CampaignListModel.cs" />
     <Compile Include="Models\Messages\TestMessageTemplateModel.cs" />
+    <Compile Include="Models\News\NewsCategoryModel.cs" />
     <Compile Include="Models\Orders\CountryReportLineModel.cs" />
     <Compile Include="Models\Orders\CountryReportModel.cs" />
     <Compile Include="Models\Payments\PaymentMethodRestrictionModel.cs" />
@@ -372,6 +374,7 @@
     <Compile Include="Validators\Customers\CustomerAttributeValidator.cs" />
     <Compile Include="Validators\Customers\CustomerAttributeValueValidator.cs" />
     <Compile Include="Validators\Messages\TestMessageTemplateValidator.cs" />
+    <Compile Include="Validators\News\NewsCategoryValidator.cs" />
     <Compile Include="Validators\Orders\ReturnRequestValidator.cs" />
     <Compile Include="Validators\Settings\ReturnRequestActionValidator.cs" />
     <Compile Include="Validators\Settings\ReturnRequestReasonValidator.cs" />

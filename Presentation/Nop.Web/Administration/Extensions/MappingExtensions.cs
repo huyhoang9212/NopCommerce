@@ -788,6 +788,20 @@ namespace Nop.Admin.Extensions
             return model.MapTo(destination);
         }
 
+        public static NewsCategoryModel ToModel(this NewsCategory entity)
+        {
+            return entity.MapTo<NewsCategory, NewsCategoryModel>();
+        }
+
+        public static NewsCategory ToEntity(this NewsCategoryModel model)
+        {
+            return model.MapTo<NewsCategoryModel, NewsCategory>();
+        }
+
+        public static NewsCategory ToEntity(this NewsCategoryModel model, NewsCategory destination)
+        {
+            return model.MapTo(destination);
+        }
         #endregion
 
         #region Polls
