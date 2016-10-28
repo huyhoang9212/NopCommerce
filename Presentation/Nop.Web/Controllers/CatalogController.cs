@@ -31,6 +31,7 @@ using Nop.Web.Framework.Security;
 using Nop.Web.Infrastructure.Cache;
 using Nop.Web.Models.Catalog;
 using Nop.Web.Models.Media;
+using Nop.Services.News;
 
 namespace Nop.Web.Controllers
 {
@@ -70,6 +71,7 @@ namespace Nop.Web.Controllers
         private readonly BlogSettings _blogSettings;
         private readonly ForumSettings _forumSettings;
         private readonly ICacheManager _cacheManager;
+        private readonly INewsCategoryService _newsCategoryService;
 
         #endregion
 
@@ -106,7 +108,8 @@ namespace Nop.Web.Controllers
             VendorSettings vendorSettings,
             BlogSettings blogSettings,
             ForumSettings  forumSettings,
-            ICacheManager cacheManager)
+            ICacheManager cacheManager,
+            INewsCategoryService newsCategoryService)
         {
             this._categoryService = categoryService;
             this._manufacturerService = manufacturerService;
@@ -140,6 +143,7 @@ namespace Nop.Web.Controllers
             this._blogSettings = blogSettings;
             this._forumSettings = forumSettings;
             this._cacheManager = cacheManager;
+            this._newsCategoryService = newsCategoryService;
         }
 
         #endregion
@@ -701,6 +705,28 @@ namespace Nop.Web.Controllers
                 BlogEnabled = _blogSettings.Enabled,
                 ForumEnabled = _forumSettings.ForumsEnabled
             };
+
+            var newsCategoryModel = new NewsCategorySimpleModel
+            {
+                Name = "Newsssss",
+                SeName = "News Seoname"
+            };
+
+            var newsCategoriesDb = _newsCategoryService.GetAllNewsCategory().ToList();
+            foreach(var newsCategory in newsCategoriesDb)
+            {
+                var subNewsCategoryModel = new NewsCategorySimpleModel()
+                {
+                    Id = newsCategory.Id,
+                    Name = newsCategory.Title,
+                    SeName = newsCategory.Title + "Seo name"
+                };
+                newsCategoryModel.SubNewsCategories.Add(subNewsCategoryModel);
+            }
+
+
+            model.NewsCategory = newsCategoryModel;
+
             return PartialView(model);
         }
         

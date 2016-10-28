@@ -93,9 +93,13 @@ namespace Nop.Services.News
         /// <param name="showHidden">A value indicating whether to show hidden records</param>
         /// <returns>News items</returns>
         public virtual IPagedList<NewsItem> GetAllNews(int languageId = 0, int storeId = 0,
-            int pageIndex = 0, int pageSize = int.MaxValue, bool showHidden = false)
+            int pageIndex = 0, int pageSize = int.MaxValue, bool showHidden = false, int categoryId = 0)
         {
             var query = _newsItemRepository.Table;
+            if(categoryId > 0)
+            {
+                query = query.Where(n => n.NewsCategoryId == categoryId);
+            }
             if (languageId > 0)
                 query = query.Where(n => languageId == n.LanguageId);
             if (!showHidden)
