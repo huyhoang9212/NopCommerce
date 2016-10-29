@@ -272,7 +272,7 @@ namespace Nop.Admin.Controllers
             {
                 model.AvailableCategories.Add(new SelectListItem
                 {
-                    Text = category.Title,
+                    Text = category.Name,
                     Value = category.Id.ToString(),
                     Selected = model.NewsCategoryId == category.Id
                 });

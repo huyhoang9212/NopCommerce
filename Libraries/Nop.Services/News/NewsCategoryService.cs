@@ -77,7 +77,9 @@ namespace Nop.Services.News
         {
             var query = _newsCategoryRepository.Table;
             if (languageId > 0)
-                query = query.Where(n => languageId == n.LanguageId);
+            {
+
+            }            
          
             query = query.OrderByDescending(n => n.CreatedOnUtc);
 

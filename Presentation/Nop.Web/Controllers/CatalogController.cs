@@ -718,8 +718,8 @@ namespace Nop.Web.Controllers
                 var subNewsCategoryModel = new NewsCategorySimpleModel()
                 {
                     Id = newsCategory.Id,
-                    Name = newsCategory.Title,
-                    SeName = newsCategory.Title + "Seo name"
+                    Name = newsCategory.Name,
+                    SeName = newsCategory.Name + "Seo name"
                 };
                 newsCategoryModel.SubNewsCategories.Add(subNewsCategoryModel);
             }

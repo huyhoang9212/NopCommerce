@@ -99,7 +99,7 @@ namespace Nop.Core.Domain.News
         }
         
 
-        public virtual NewsCategory NewsCategory { get; set; }
+        //public virtual NewsCategory NewsCategory { get; set; }
 
         /// <summary>
         /// Gets or sets the language

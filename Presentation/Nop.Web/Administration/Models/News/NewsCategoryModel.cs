@@ -9,7 +9,7 @@ namespace Nop.Admin.Models.News
 {
     public class NewsCategoryModel : BaseNopEntityModel
     {
-        [Display(Name = "Category Title")]
-        public string Title { get; set; }
+        [Display(Name = "Category Name")]
+        public string Name { get; set; }
     }
 }

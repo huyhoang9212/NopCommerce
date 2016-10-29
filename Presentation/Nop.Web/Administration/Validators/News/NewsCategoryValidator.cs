@@ -11,7 +11,7 @@ namespace Nop.Admin.Validators.News
     {
         public NewsCategoryValidator(ILocalizationService localizationService, IDbContext dbContext)
         {
-            RuleFor(x => x.Title).NotEmpty().WithMessage(localizationService.GetResource("Admin.ContentManagement.News.NewsItems.Fields.Title.Required"));
+            RuleFor(x => x.Name).NotEmpty().WithMessage(localizationService.GetResource("Admin.ContentManagement.News.NewsItems.Fields.Title.Required"));
 
             SetStringPropertiesMaxLength<NewsCategory>(dbContext);
         }

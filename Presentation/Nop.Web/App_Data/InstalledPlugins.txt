@@ -12,6 +12,7 @@ Payments.PurchaseOrder
 Pickup.PickupInStore
 PromotionFeed.Froogle
 Shipping.AustraliaPost
+Shipping.CanadaPost
 Shipping.FedEx
 Shipping.FixedRate
 Shipping.ByWeight

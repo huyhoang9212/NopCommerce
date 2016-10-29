@@ -529,8 +529,8 @@ namespace Nop.Admin.Infrastructure.Mapper
                     .ForMember(dest => dest.AvailableStores, mo => mo.Ignore())
                     .ForMember(dest => dest.SelectedStoreIds, mo => mo.Ignore())
                     .ForMember(dest => dest.CustomProperties, mo => mo.Ignore())
-                    .ForMember(dest => dest.AvailableLanguages, mo => mo.Ignore())
-                    .ForMember(dest => dest.CategoryName, mo=>mo.MapFrom(src=>src.NewsCategory.Title));
+                    .ForMember(dest => dest.AvailableLanguages, mo => mo.Ignore());
+                   // .ForMember(dest => dest.CategoryName, mo=>mo.MapFrom(src=>src.NewsCategory.Name));
                 cfg.CreateMap<NewsItemModel, NewsItem>()
                     .ForMember(dest => dest.NewsComments, mo => mo.Ignore())
                     .ForMember(dest => dest.Language, mo => mo.Ignore())
@@ -538,8 +538,12 @@ namespace Nop.Admin.Infrastructure.Mapper
                     .ForMember(dest => dest.StartDateUtc, mo => mo.Ignore())
                     .ForMember(dest => dest.EndDateUtc, mo => mo.Ignore())
                     .ForMember(dest => dest.CreatedOnUtc, mo => mo.Ignore())
-                    .ForMember(dest => dest.LimitedToStores, mo => mo.Ignore());
-                //news
+                    .ForMember(dest => dest.LimitedToStores, mo => mo.Ignore());                
+                // News category
+                cfg.CreateMap<NewsCategory, NewsCategoryModel>();
+                cfg.CreateMap<NewsCategoryModel, NewsCategory>();
+
+
                 cfg.CreateMap<Poll, PollModel>()
                     .ForMember(dest => dest.StartDate, mo => mo.Ignore())
                     .ForMember(dest => dest.EndDate, mo => mo.Ignore())
@@ -984,10 +988,7 @@ namespace Nop.Admin.Infrastructure.Mapper
                 cfg.CreateMap<TopicTemplateModel, TopicTemplate>();
 
 
-                // News category
-                cfg.CreateMap<NewsCategory, NewsCategoryModel>();
-                cfg.CreateMap<NewsCategoryModel,NewsCategory>();
-
+               
 
             });
             _mapper = _mapperConfiguration.CreateMapper();
