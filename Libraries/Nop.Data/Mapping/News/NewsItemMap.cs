@@ -14,10 +14,6 @@ namespace Nop.Data.Mapping.News
             this.Property(ni => ni.MetaKeywords).HasMaxLength(400);
             this.Property(ni => ni.MetaTitle).HasMaxLength(400);
 
-            //this.HasRequired(ni => ni.NewsCategory)
-            //    .WithMany(nc => nc.NewsItems)
-            //    .HasForeignKey(ni => ni.NewsCategoryId);
-
             this.HasRequired(ni => ni.Language)
                 .WithMany()
                 .HasForeignKey(ni => ni.LanguageId).WillCascadeOnDelete(true);

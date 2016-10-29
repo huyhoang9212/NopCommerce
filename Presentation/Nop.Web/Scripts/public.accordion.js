@@ -110,5 +110,3 @@ var Accordion = {
         }
     }
 };
-
-$

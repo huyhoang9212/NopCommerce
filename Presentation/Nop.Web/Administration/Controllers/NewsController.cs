@@ -24,7 +24,6 @@ namespace Nop.Admin.Controllers
 		#region Fields
 
         private readonly INewsService _newsService;
-        private readonly INewsCategoryService _newsCategoryService;
         private readonly ILanguageService _languageService;
         private readonly IDateTimeHelper _dateTimeHelper;
         private readonly ILocalizationService _localizationService;
@@ -37,8 +36,7 @@ namespace Nop.Admin.Controllers
 
 		#region Constructors
 
-        public NewsController(INewsService newsService,
-            INewsCategoryService newsCategoryService,
+        public NewsController(INewsService newsService, 
             ILanguageService languageService,
             IDateTimeHelper dateTimeHelper,
             ILocalizationService localizationService,
@@ -48,7 +46,6 @@ namespace Nop.Admin.Controllers
             IStoreMappingService storeMappingService)
         {
             this._newsService = newsService;
-            this._newsCategoryService = newsCategoryService;
             this._languageService = languageService;
             this._dateTimeHelper = dateTimeHelper;
             this._localizationService = localizationService;
@@ -250,33 +247,11 @@ namespace Nop.Admin.Controllers
             var model = newsItem.ToModel();
             model.StartDate = newsItem.StartDateUtc;
             model.EndDate = newsItem.EndDateUtc;
-
-            // Categories
-            PrepareCategoriesModel(model);
-
             //languages
             PrepareLanguagesModel(model);
             //Store
             PrepareStoresMappingModel(model, newsItem, false);
             return View(model);
-        }
-
-        [NonAction]
-        protected virtual void PrepareCategoriesModel(NewsItemModel model)
-        {
-            if (model == null)
-                throw new ArgumentNullException("model");
-
-            var newsCategories = _newsCategoryService.GetAllNewsCategory().ToList();
-            foreach (var category in newsCategories)
-            {
-                model.AvailableCategories.Add(new SelectListItem
-                {
-                    Text = category.Name,
-                    Value = category.Id.ToString(),
-                    Selected = model.NewsCategoryId == category.Id
-                });
-            }
         }
 
         [HttpPost, ParameterBasedOnFormName("save-continue", "continueEditing")]
@@ -293,7 +268,6 @@ namespace Nop.Admin.Controllers
             if (ModelState.IsValid)
             {
                 newsItem = model.ToEntity(newsItem);
-                newsItem.NewsCategoryId = model.NewsCategoryId;
                 newsItem.StartDateUtc = model.StartDate;
                 newsItem.EndDateUtc = model.EndDate;
                 _newsService.UpdateNews(newsItem);

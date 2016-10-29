@@ -9,13 +9,10 @@ namespace Nop.Web.Models.Catalog
         {
             Categories = new List<CategorySimpleModel>();
             Topics = new List<TopMenuTopicModel>();
-            //NewsCategory = new NewsCategorySimpleModel();
         }
 
         public IList<CategorySimpleModel> Categories { get; set; }
         public IList<TopMenuTopicModel> Topics { get; set; }
-        
-        public NewsCategorySimpleModel NewsCategory { get; set; }
 
         public bool BlogEnabled { get; set; }
         public bool NewProductsEnabled { get; set; }

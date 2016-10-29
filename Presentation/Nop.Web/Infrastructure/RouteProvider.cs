@@ -132,10 +132,6 @@ namespace Nop.Web.Infrastructure
                             new { controller = "News", action = "List" },
                             new[] { "Nop.Web.Controllers" });
 
-            routes.MapLocalizedRoute("NewsArchiveByName",
-                           "news/{categoryId}",
-                           new { controller = "News", action = "ListByCategory", categoryId = UrlParameter.Optional },
-                           new[] { "Nop.Web.Controllers" });
             //forum
             routes.MapLocalizedRoute("Boards",
                             "boards",

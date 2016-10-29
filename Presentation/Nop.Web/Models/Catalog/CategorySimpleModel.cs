@@ -20,17 +20,4 @@ namespace Nop.Web.Models.Catalog
 
         public List<CategorySimpleModel> SubCategories { get; set; }
     }
-
-    public class NewsCategorySimpleModel : BaseNopEntityModel
-    {
-        public NewsCategorySimpleModel()
-        {
-            SubNewsCategories = new List<NewsCategorySimpleModel>();
-        }
-        public string Name { get; set; }
-
-        public string SeName { get; set; }
-
-        public List<NewsCategorySimpleModel> SubNewsCategories { get; set; }
-    }
 }
