@@ -9,9 +9,7 @@ using Nop.Core.Domain.Stores;
 namespace Nop.Core.Domain.News
 {
     public class NewsCategory : BaseEntity, ISlugSupported, IStoreMappingSupported
-    {
-        private ICollection<NewsItem> _newsItems;
-
+    {       
         public string Name { get; set; }
 
         public string Description { get; set; }
@@ -49,7 +47,8 @@ namespace Nop.Core.Domain.News
         public DateTime CreatedOnUtc { get; set; }
 
         public DateTime UpdatedOnUtc { get; set; }
-        
+
+        private ICollection<NewsItem> _newsItems;
         public virtual ICollection<NewsItem> NewsItems
         {
             get { return _newsItems ?? (_newsItems = new List<NewsItem>()); }

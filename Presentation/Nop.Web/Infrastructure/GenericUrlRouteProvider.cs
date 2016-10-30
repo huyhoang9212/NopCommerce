@@ -26,6 +26,11 @@ namespace Nop.Web.Infrastructure
                             new { controller = "Catalog", action = "Category" },
                             new[] { "Nop.Web.Controllers" });
 
+            routes.MapLocalizedRoute("NewsCategory",
+                            "{SeName}",
+                            new { controller = "News", action = "NewsItems" },
+                            new[] { "Nop.Web.Controllers" });
+
             routes.MapLocalizedRoute("Manufacturer",
                             "{SeName}",
                             new { controller = "Catalog", action = "Manufacturer" },

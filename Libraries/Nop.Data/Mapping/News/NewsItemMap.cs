@@ -2,6 +2,9 @@ using Nop.Core.Domain.News;
 
 namespace Nop.Data.Mapping.News
 {
+    /// <summary>
+    /// http://www.entityframeworktutorial.net/code-first/configure-one-to-many-relationship-in-code-first.aspx
+    /// </summary>
     public partial class NewsItemMap : NopEntityTypeConfiguration<NewsItem>
     {
         public NewsItemMap()
@@ -17,6 +20,14 @@ namespace Nop.Data.Mapping.News
             this.HasRequired(ni => ni.Language)
                 .WithMany()
                 .HasForeignKey(ni => ni.LanguageId).WillCascadeOnDelete(true);
+
+            //this.HasRequired(ni => ni.NewsCategory)
+            //    .WithMany()
+            //    .HasForeignKey(ni => ni.NewsCategoryId);
+
+            this.HasRequired<NewsCategory>(ni => ni.NewsCategory)
+                .WithMany(nc => nc.NewsItems)
+                .HasForeignKey(ni => ni.CategoryId);
         }
     }
 }

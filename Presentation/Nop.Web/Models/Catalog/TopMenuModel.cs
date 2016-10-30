@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Nop.Web.Framework.Mvc;
+using Nop.Web.Models.News;
 
 namespace Nop.Web.Models.Catalog
 {
@@ -13,7 +14,7 @@ namespace Nop.Web.Models.Catalog
 
         public IList<CategorySimpleModel> Categories { get; set; }
         public IList<TopMenuTopicModel> Topics { get; set; }
-
+        public IList<NewsCategorySimpleModel> NewsCategories { get; set; }
         public bool BlogEnabled { get; set; }
         public bool NewProductsEnabled { get; set; }
         public bool ForumEnabled { get; set; }

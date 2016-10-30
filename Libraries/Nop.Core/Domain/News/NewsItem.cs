@@ -8,10 +8,14 @@ namespace Nop.Core.Domain.News
 {
     /// <summary>
     /// Represents a news item
+    /// http://www.entityframeworktutorial.net/code-first/configure-one-to-many-relationship-in-code-first.aspx
     /// </summary>
     public partial class NewsItem : BaseEntity, ISlugSupported, IStoreMappingSupported
     {
         private ICollection<NewsComment> _newsComments;
+
+
+        //public int NewsCategoryId { get; set; }
 
         /// <summary>
         /// Gets or sets the language identifier
@@ -99,5 +103,13 @@ namespace Nop.Core.Domain.News
         /// Gets or sets the language
         /// </summary>
         public virtual Language Language { get; set; }
+
+        /// <summary>
+        /// http://www.entityframeworktutorial.net/code-first/configure-one-to-many-relationship-in-code-first.aspx
+        /// It not follow the convetion TableId
+        /// </summary>
+        public int CategoryId { get; set; }
+
+        public virtual NewsCategory NewsCategory { get; set; }
     }
 }

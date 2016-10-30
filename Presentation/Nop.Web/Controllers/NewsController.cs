@@ -35,6 +35,7 @@ namespace Nop.Web.Controllers
         #region Fields
 
         private readonly INewsService _newsService;
+        private readonly INewsCategoryService _newsCategoryService;
         private readonly IWorkContext _workContext;
         private readonly IStoreContext _storeContext;
         private readonly IPictureService _pictureService;
@@ -58,6 +59,7 @@ namespace Nop.Web.Controllers
         #region Constructors
 
         public NewsController(INewsService newsService,
+            INewsCategoryService newsCategoryService,
             IWorkContext workContext, 
             IStoreContext storeContext,
             IPictureService pictureService, 
@@ -76,6 +78,7 @@ namespace Nop.Web.Controllers
             CaptchaSettings captchaSettings)
         {
             this._newsService = newsService;
+            this._newsCategoryService = newsCategoryService;
             this._workContext = workContext;
             this._storeContext = storeContext;
             this._pictureService = pictureService;
@@ -209,6 +212,11 @@ namespace Nop.Web.Controllers
                 .ToList();
 
             return View(model);
+        }
+
+        public ActionResult NewsItems(int newscategoryid)
+        {
+            return View("List");
         }
 
         public ActionResult ListRss(int languageId)

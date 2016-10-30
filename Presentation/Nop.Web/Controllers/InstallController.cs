@@ -183,16 +183,22 @@ namespace Nop.Web.Controllers
 
             var model = new InstallModel
             {
-                AdminEmail = "admin@yourStore.com",
-                InstallSampleData = false,
+                AdminEmail = "admin@nop.com",
+                AdminPassword = "P@ssw0rd",
+                ConfirmPassword = "P@ssw0rd",
+                InstallSampleData = true,
+                SqlServerName = @"localhost\SQLEXPRESS",
+                SqlDatabaseName = "nopcommerce",
+                SqlServerUsername = "sa",
+                SqlServerPassword = "P@ssw0rd",
                 DatabaseConnectionString = "",
                 DataProvider = "sqlserver",
                 //fast installation service does not support SQL compact
                 DisableSqlCompact = _config.UseFastInstallationService,
                 DisableSampleDataOption = _config.DisableSampleDataDuringInstallation,
-                SqlAuthenticationType = "sqlauthentication",
+                SqlAuthenticationType = "windowsauthentication",
                 SqlConnectionInfo = "sqlconnectioninfo_values",
-                SqlServerCreateDatabase = false,
+                SqlServerCreateDatabase = true,
                 UseCustomCollation = false,
                 Collation = "SQL_Latin1_General_CP1_CI_AS",
             };

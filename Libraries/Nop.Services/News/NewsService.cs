@@ -238,4 +238,110 @@ namespace Nop.Services.News
         }
         #endregion
     }
+
+    public partial class NewsCategoryService : INewsCategoryService
+    {
+        #region Fields
+
+        private readonly IRepository<NewsItem> _newsItemRepository;
+        private readonly IRepository<NewsComment> _newsCommentRepository;
+        private readonly IRepository<StoreMapping> _storeMappingRepository;
+        private readonly CatalogSettings _catalogSettings;
+        private readonly IEventPublisher _eventPublisher;
+        private readonly IRepository<NewsCategory> _newsCategoryRepository;
+
+        #endregion
+
+        #region Ctor
+
+        public NewsCategoryService(IRepository<NewsItem> newsItemRepository,
+            IRepository<NewsComment> newsCommentRepository,
+            IRepository<StoreMapping> storeMappingRepository,
+            CatalogSettings catalogSettings,
+            IEventPublisher eventPublisher,
+            IRepository<NewsCategory> newsCategoryRepository)
+        {
+            this._newsItemRepository = newsItemRepository;
+            this._newsCommentRepository = newsCommentRepository;
+            this._storeMappingRepository = storeMappingRepository;
+            this._catalogSettings = catalogSettings;
+            this._eventPublisher = eventPublisher;
+            this._newsCategoryRepository = newsCategoryRepository;
+        }
+
+        #endregion
+
+        #region Methods      
+
+        public void DeleteNewsCategory(NewsCategory newsItem)
+        {
+            throw new NotImplementedException();
+        }
+
+        public NewsCategory GetNewsCategoryById(int newsId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<NewsCategory> GetNewsCategoryByIds(int[] newsIds)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IPagedList<NewsCategory> GetAllNewsCategory(           
+            int storeId = 0, 
+            int pageIndex = 0, 
+            int pageSize = int.MaxValue,
+            bool showHidden = false)
+        {
+            var query = _newsCategoryRepository.Table;         
+                    
+            //Store mapping
+            if (storeId > 0 && !_catalogSettings.IgnoreStoreLimitations)
+            {
+                query = from n in query
+                        join sm in _storeMappingRepository.Table
+                        on new { c1 = n.Id, c2 = "NewsCategory" } equals new { c1 = sm.EntityId, c2 = sm.EntityName } into n_sm
+                        from sm in n_sm.DefaultIfEmpty()
+                        where !n.LimitedToStores || storeId == sm.StoreId
+                        select n;
+
+                //only distinct items (group by ID)
+                query = from n in query
+                        group n by n.Id
+                        into nGroup
+                        orderby nGroup.Key
+                        select nGroup.FirstOrDefault();
+                query = query.OrderByDescending(n => n.CreatedOnUtc);
+            }
+
+            var newsCategories = new PagedList<NewsCategory>(query, pageIndex, pageSize);
+            return newsCategories;
+        }
+
+        public IList<NewsCategory> GetAllNewsCategoryByParentId(int parentId)
+        {
+            var query = _newsCategoryRepository.Table.Where(nc=>nc.ParentCategoryId == parentId);
+            var newsCategories = query.ToList();
+            return newsCategories;
+        }
+
+        public void InsertNewsCategory(NewsCategory news)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateNewsCategory(NewsCategory news)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<NewsItem> GetAllNewsByCategory(int categoryId)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+    }
+
+
 }
