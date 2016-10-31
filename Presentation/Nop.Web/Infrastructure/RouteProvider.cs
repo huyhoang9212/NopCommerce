@@ -131,6 +131,11 @@ namespace Nop.Web.Infrastructure
                             "news",
                             new { controller = "News", action = "List" },
                             new[] { "Nop.Web.Controllers" });
+            routes.MapLocalizedRoute("NewsArchiveAll",
+                            "news/all",
+                            new { controller = "News", action = "List" },
+                            new[] { "Nop.Web.Controllers" });
+
 
             //forum
             routes.MapLocalizedRoute("Boards",
@@ -181,6 +186,13 @@ namespace Nop.Web.Infrastructure
                             new { controller = "Catalog", action = "ProductsByTag", SeName = UrlParameter.Optional },
                             new { productTagId = @"\d+" },
                             new[] { "Nop.Web.Controllers" });
+
+            //category by name
+            routes.MapLocalizedRoute("NewsCategoryByName",
+                        "newscategory/{SeName}",
+                        new { controller = "News", action = "NewsItemsByCategory" },
+                        new[] { "Nop.Web.Controllers" });
+
             //comparing products
             routes.MapLocalizedRoute("AddProductToCompare",
                             "compareproducts/add/{productId}",

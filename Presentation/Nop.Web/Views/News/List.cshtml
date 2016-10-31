@@ -11,7 +11,8 @@
 <div class="page news-list-page">
     <div class="page-title">
         <a href="@Url.RouteUrl("NewsRSS", new { languageId = Model.WorkingLanguageId })" class="link-rss" title="@T("News.RSS.Hint")">@T("News.RSS")</a>
-        <h1>@T("News")</h1>
+        @*<h1>@T("News")</h1>*@
+        <h1>@Model.NewsCategoryName</h1>
     </div>
     <div class="page-body">
         @Html.Widget("newslist_page_before_items")

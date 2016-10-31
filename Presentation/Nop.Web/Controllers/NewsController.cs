@@ -163,7 +163,7 @@ namespace Nop.Web.Controllers
             var cacheKey = string.Format(ModelCacheEventConsumer.HOMEPAGE_NEWSMODEL_KEY, _workContext.WorkingLanguage.Id, _storeContext.CurrentStore.Id);
             var cachedModel = _cacheManager.Get(cacheKey, () =>
             {
-                var newsItems = _newsService.GetAllNews(_workContext.WorkingLanguage.Id, _storeContext.CurrentStore.Id, 0, _newsSettings.MainPageNewsCount);
+                var newsItems = _newsService.GetAllNews(_workContext.WorkingLanguage.Id,0, _storeContext.CurrentStore.Id, 0, _newsSettings.MainPageNewsCount);
                 return new HomePageNewsItemsModel
                 {
                     WorkingLanguageId = _workContext.WorkingLanguage.Id,
@@ -198,7 +198,7 @@ namespace Nop.Web.Controllers
             if (command.PageSize <= 0) command.PageSize = _newsSettings.NewsArchivePageSize;
             if (command.PageNumber <= 0) command.PageNumber = 1;
 
-            var newsItems = _newsService.GetAllNews(_workContext.WorkingLanguage.Id, _storeContext.CurrentStore.Id,
+            var newsItems = _newsService.GetAllNews(_workContext.WorkingLanguage.Id,0, _storeContext.CurrentStore.Id,
                 command.PageNumber - 1, command.PageSize);
             model.PagingFilteringContext.LoadPagedList(newsItems);
 
@@ -214,9 +214,70 @@ namespace Nop.Web.Controllers
             return View(model);
         }
 
-        public ActionResult NewsItems(int newscategoryid)
+        public ActionResult NewsItems(int newscategoryid, NewsPagingFilteringModel command)
         {
-            return View("List");
+            if (!_newsSettings.Enabled)
+                return RedirectToRoute("HomePage");
+            var newsCategory = _newsCategoryService.GetNewsCategoryById(newscategoryid);
+            if (newsCategory.ParentCategoryId == 0)
+                newscategoryid = 0;
+
+            var model = new NewsItemListModel();
+            model.WorkingLanguageId = _workContext.WorkingLanguage.Id;
+
+            if (command.PageSize <= 0) command.PageSize = _newsSettings.NewsArchivePageSize;
+            if (command.PageNumber <= 0) command.PageNumber = 1;
+
+            
+            var newsItems = _newsService.GetAllNews(_workContext.WorkingLanguage.Id, newscategoryid, _storeContext.CurrentStore.Id,
+                command.PageNumber - 1, command.PageSize);
+
+            //var newsItemss = _newsCategoryService.GEtAllNews
+
+            model.PagingFilteringContext.LoadPagedList(newsItems);
+
+            model.NewsItems = newsItems
+                .Select(x =>
+                {
+                    var newsModel = new NewsItemModel();
+                    PrepareNewsItemModel(newsModel, x, false);
+                    return newsModel;
+                })
+                .ToList();
+            model.NewsCategoryName = newsCategory.Name;
+
+            return View("List", model);
+        }
+
+
+        public ActionResult NewsItemsByCategory(int? newscategoryid, NewsPagingFilteringModel command)
+        {
+            if (!_newsSettings.Enabled)
+                return RedirectToRoute("HomePage");
+
+            var model = new NewsItemListModel();
+            model.WorkingLanguageId = _workContext.WorkingLanguage.Id;
+
+            if (command.PageSize <= 0) command.PageSize = _newsSettings.NewsArchivePageSize;
+            if (command.PageNumber <= 0) command.PageNumber = 1;
+
+            var newsItems = _newsService.GetAllNews(_workContext.WorkingLanguage.Id, newscategoryid.Value, _storeContext.CurrentStore.Id,
+                command.PageNumber - 1, command.PageSize);
+
+            //var newsItemss = _newsCategoryService.GEtAllNews
+
+            model.PagingFilteringContext.LoadPagedList(newsItems);
+
+            model.NewsItems = newsItems
+                .Select(x =>
+                {
+                    var newsModel = new NewsItemModel();
+                    PrepareNewsItemModel(newsModel, x, false);
+                    return newsModel;
+                })
+                .ToList();
+
+            return View("List", model);
         }
 
         public ActionResult ListRss(int languageId)
@@ -232,7 +293,7 @@ namespace Nop.Web.Controllers
                 return new RssActionResult { Feed = feed };
 
             var items = new List<SyndicationItem>();
-            var newsItems = _newsService.GetAllNews(languageId, _storeContext.CurrentStore.Id);
+            var newsItems = _newsService.GetAllNews(languageId,0, _storeContext.CurrentStore.Id);
             foreach (var n in newsItems)
             {
                 string newsUrl = Url.RouteUrl("NewsItem", new { SeName = n.GetSeName(n.LanguageId, ensureTwoPublishedLanguages: false) }, _webHelper.IsCurrentConnectionSecured() ? "https" : "http");

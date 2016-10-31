@@ -92,12 +92,16 @@ namespace Nop.Services.News
         /// <param name="pageSize">Page size</param>
         /// <param name="showHidden">A value indicating whether to show hidden records</param>
         /// <returns>News items</returns>
-        public virtual IPagedList<NewsItem> GetAllNews(int languageId = 0, int storeId = 0,
+        public virtual IPagedList<NewsItem> GetAllNews(int languageId = 0, int categoryId = 0, int storeId = 0,
             int pageIndex = 0, int pageSize = int.MaxValue, bool showHidden = false)
         {
             var query = _newsItemRepository.Table;
             if (languageId > 0)
                 query = query.Where(n => languageId == n.LanguageId);
+
+            if (categoryId > 0)
+                query = query.Where(n => n.CategoryId == categoryId);
+
             if (!showHidden)
             {
                 var utcNow = DateTime.UtcNow;
@@ -280,7 +284,7 @@ namespace Nop.Services.News
 
         public NewsCategory GetNewsCategoryById(int newsId)
         {
-            throw new NotImplementedException();
+            return _newsCategoryRepository.GetById(newsId);
         }
 
         public IList<NewsCategory> GetNewsCategoryByIds(int[] newsIds)

@@ -38,7 +38,7 @@ namespace Nop.Services.News
         /// <param name="pageSize">Page size</param>
         /// <param name="showHidden">A value indicating whether to show hidden records</param>
         /// <returns>News items</returns>
-        IPagedList<NewsItem> GetAllNews(int languageId = 0, int storeId = 0,
+        IPagedList<NewsItem> GetAllNews(int languageId = 0, int categoryId = 0 , int storeId = 0,
             int pageIndex = 0, int pageSize = int.MaxValue, bool showHidden = false);
 
         /// <summary>

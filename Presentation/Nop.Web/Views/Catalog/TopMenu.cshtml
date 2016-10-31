@@ -46,6 +46,10 @@
         <a href="@Url.RouteUrl("NewsCategory",new { SeName = newsCategory.SeName})">
             @newsCategory.Name
         </a>
+        @*<a href="@Url.RouteUrl("NewsCategoryByName",new { SeName = newsCategory.SeName, newscategoryid = newsCategory.Id})">
+            @newsCategory.Name
+        </a>*@
+        
     @{
         var subCategories = newsCategory.SubNewsCategories.Where(x => x.IncludeInTopMenu).ToList();
         var levelClass = "";
