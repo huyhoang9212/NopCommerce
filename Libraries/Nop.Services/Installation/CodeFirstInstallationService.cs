@@ -10903,6 +10903,9 @@ namespace Nop.Services.Installation
                 });
             }
 
+
+
+
             //comments
             var defaultCustomer = _customerRepository.Table.FirstOrDefault(x => x.Email == defaultUserEmail);
             if (defaultCustomer == null)
