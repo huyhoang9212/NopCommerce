@@ -250,3 +250,27 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+Presentation/Nop.Web/Plugins/DiscountRules.CustomerRoles/Nop.Plugin.DiscountRules.CustomerRoles.dll
+Presentation/Nop.Web/Plugins/DiscountRules.HadSpentAmount/Nop.Plugin.DiscountRules.HadSpentAmount.dll
+Presentation/Nop.Web/Plugins/DiscountRules.HasAllProducts/Nop.Plugin.DiscountRules.HasAllProducts.dll
+Presentation/Nop.Web/Plugins/DiscountRules.HasOneProduct/Nop.Plugin.DiscountRules.HasOneProduct.dll
+Presentation/Nop.Web/Plugins/ExchangeRate.EcbExchange/Nop.Plugin.ExchangeRate.EcbExchange.dll
+Presentation/Nop.Web/Plugins/ExternalAuth.Facebook/Nop.Plugin.ExternalAuth.Facebook.dll
+Presentation/Nop.Web/Plugins/Feed.Froogle/Nop.Plugin.Feed.Froogle.dll
+Presentation/Nop.Web/Plugins/Payments.CheckMoneyOrder/Nop.Plugin.Payments.CheckMoneyOrder.dll
+Presentation/Nop.Web/Plugins/Payments.Manual/Nop.Plugin.Payments.Manual.dll
+Presentation/Nop.Web/Plugins/Payments.PayPalDirect/Nop.Plugin.Payments.PayPalDirect.dll
+Presentation/Nop.Web/Plugins/Payments.PayPalStandard/Nop.Plugin.Payments.PayPalStandard.dll
+Presentation/Nop.Web/Plugins/Payments.PurchaseOrder/Nop.Plugin.Payments.PurchaseOrder.dll
+Presentation/Nop.Web/Plugins/Pickup.PickupInStore/Nop.Plugin.Pickup.PickupInStore.dll
+Presentation/Nop.Web/Plugins/Shipping.AustraliaPost/Nop.Plugin.Shipping.AustraliaPost.dll
+Presentation/Nop.Web/Plugins/Shipping.ByWeight/Nop.Plugin.Shipping.ByWeight.dll
+Presentation/Nop.Web/Plugins/Shipping.CanadaPost/Nop.Plugin.Shipping.CanadaPost.dll
+Presentation/Nop.Web/Plugins/Shipping.Fedex/Nop.Plugin.Shipping.Fedex.dll
+Presentation/Nop.Web/Plugins/Shipping.FixedRateShipping/Nop.Plugin.Shipping.FixedRateShipping.dll
+Presentation/Nop.Web/Plugins/Shipping.UPS/Nop.Plugin.Shipping.UPS.dll
+Presentation/Nop.Web/Plugins/Shipping.USPS/Nop.Plugin.Shipping.USPS.dll
+Presentation/Nop.Web/Plugins/Tax.CountryStateZip/Nop.Plugin.Tax.CountryStateZip.dll
+Presentation/Nop.Web/Plugins/Tax.FixedRate/Nop.Plugin.Tax.FixedRate.dll
+Presentation/Nop.Web/Plugins/Widgets.GoogleAnalytics/Nop.Plugin.Widgets.GoogleAnalytics.dll
+Presentation/Nop.Web/Plugins/Widgets.NivoSlider/Nop.Plugin.Widgets.NivoSlider.dll

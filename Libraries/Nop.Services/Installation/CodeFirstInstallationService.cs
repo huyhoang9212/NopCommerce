@@ -10882,6 +10882,27 @@ namespace Nop.Services.Installation
                 });
             }
 
+            //search engine names for newscategory
+            _urlRecordRepository.Insert(new UrlRecord
+            {
+                EntityId = tayBacKiSu.Id,
+                EntityName = "NewsCategory",
+                LanguageId = 0,
+                IsActive = true,
+                Slug = tayBacKiSu.ValidateSeName("", tayBacKiSu.Name, true)
+            });
+            foreach (var newsCategory in newsCategories)
+            {
+                _urlRecordRepository.Insert(new UrlRecord
+                {
+                    EntityId = newsCategory.Id,
+                    EntityName = "NewsCategory",
+                    LanguageId = 0,
+                    IsActive = true,
+                    Slug = newsCategory.ValidateSeName("", newsCategory.Name, true)
+                });
+            }
+
             //comments
             var defaultCustomer = _customerRepository.Table.FirstOrDefault(x => x.Email == defaultUserEmail);
             if (defaultCustomer == null)
