@@ -33,6 +33,8 @@ using Nop.Web.Models.Catalog;
 using Nop.Web.Models.Media;
 using Nop.Services.News;
 using Nop.Web.Models.News;
+using System.Web.UI;
+using System.Web.Routing;
 
 namespace Nop.Web.Controllers
 {

@@ -187,12 +187,6 @@ namespace Nop.Web.Infrastructure
                             new { productTagId = @"\d+" },
                             new[] { "Nop.Web.Controllers" });
 
-            //category by name
-            routes.MapLocalizedRoute("NewsCategoryByName",
-                        "newscategory/{SeName}",
-                        new { controller = "News", action = "NewsItemsByCategory" },
-                        new[] { "Nop.Web.Controllers" });
-
             //comparing products
             routes.MapLocalizedRoute("AddProductToCompare",
                             "compareproducts/add/{productId}",

@@ -20,10 +20,11 @@ using Nop.Web.Framework.Mvc;
 namespace Nop.Admin.Controllers
 {
     public partial class NewsController : BaseAdminController
-	{
-		#region Fields
+    {
+        #region Fields
 
         private readonly INewsService _newsService;
+        private readonly INewsCategoryService _newsCategoryService;
         private readonly ILanguageService _languageService;
         private readonly IDateTimeHelper _dateTimeHelper;
         private readonly ILocalizationService _localizationService;
@@ -31,21 +32,23 @@ namespace Nop.Admin.Controllers
         private readonly IUrlRecordService _urlRecordService;
         private readonly IStoreService _storeService;
         private readonly IStoreMappingService _storeMappingService;
-        
-		#endregion
 
-		#region Constructors
+        #endregion
 
-        public NewsController(INewsService newsService, 
+        #region Constructors
+
+        public NewsController(INewsService newsService,
+            INewsCategoryService newsCategoryService,
             ILanguageService languageService,
             IDateTimeHelper dateTimeHelper,
             ILocalizationService localizationService,
             IPermissionService permissionService,
             IUrlRecordService urlRecordService,
-            IStoreService storeService, 
+            IStoreService storeService,
             IStoreMappingService storeMappingService)
         {
             this._newsService = newsService;
+            this._newsCategoryService = newsCategoryService;
             this._languageService = languageService;
             this._dateTimeHelper = dateTimeHelper;
             this._localizationService = localizationService;
@@ -53,7 +56,7 @@ namespace Nop.Admin.Controllers
             this._urlRecordService = urlRecordService;
             this._storeService = storeService;
             this._storeMappingService = storeMappingService;
-		}
+        }
 
         #endregion
 
@@ -121,7 +124,7 @@ namespace Nop.Admin.Controllers
                 }
             }
         }
-        
+
         #endregion
 
         #region News items
@@ -207,7 +210,7 @@ namespace Nop.Admin.Controllers
                 newsItem.EndDateUtc = model.EndDate;
                 newsItem.CreatedOnUtc = DateTime.UtcNow;
                 _newsService.InsertNews(newsItem);
-                
+
                 //search engine name
                 var seName = newsItem.ValidateSeName(model.SeName, model.Title, true);
                 _urlRecordService.SaveSlug(newsItem, seName, newsItem.LanguageId);
@@ -286,7 +289,7 @@ namespace Nop.Admin.Controllers
                     //selected tab
                     SaveSelectedTabName();
 
-                    return RedirectToAction("Edit", new {id = newsItem.Id});
+                    return RedirectToAction("Edit", new { id = newsItem.Id });
                 }
                 return RedirectToAction("List");
             }
@@ -312,6 +315,33 @@ namespace Nop.Admin.Controllers
 
             SuccessNotification(_localizationService.GetResource("Admin.ContentManagement.News.NewsItems.Deleted"));
             return RedirectToAction("List");
+        }
+
+        #endregion
+
+
+        #region NewsCategory
+        public ActionResult ListCategories()
+        {
+            var model = new NewsCategoryListModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult ListCategories(DataSourceRequest command, NewsCategoryListModel model)
+        {
+            var categories = _newsCategoryService.GetAllNewsCategories(model.SearchCategoryName, 0, command.Page - 1, command.PageSize, true);
+            var gridModel = new DataSourceResult
+            {
+                Data = categories.Select(x =>
+                {
+                    var categoryModel = x.ToModel();
+                    return categoryModel;
+                }),
+                Total = categories.TotalCount
+            };
+
+            return Json(gridModel);
         }
 
         #endregion
@@ -379,7 +409,7 @@ namespace Nop.Admin.Controllers
 
             return new NullJsonResult();
         }
-        
+
         [HttpPost]
         public ActionResult DeleteSelectedComments(ICollection<int> selectedIds)
         {

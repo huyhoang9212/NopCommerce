@@ -119,7 +119,7 @@ namespace Nop.Services.News
         /// <param name="pageSize">Page size</param>
         /// <param name="showHidden">A value indicating whether to show hidden records</param>
         /// <returns>News items</returns>
-        IPagedList<NewsCategory> GetAllNewsCategory(int storeId = 0,
+        IPagedList<NewsCategory> GetAllNewsCategories(string categoryName = "", int storeId = 0,
             int pageIndex = 0, int pageSize = int.MaxValue, bool showHidden = false);
 
         /// <summary>

@@ -15,6 +15,11 @@ namespace Nop.Web.Infrastructure
                                        new {controller = "Common", action = "GenericUrl"},
                                        new[] {"Nop.Web.Controllers"});
 
+            routes.MapGenericPathRoute("NewsCategory",
+                        "news/{generic_se_name}",
+                        new { controller = "Common", action = "GenericUrl" },
+                        new[] { "Nop.Web.Controllers" });
+
             //define this routes to use in UI views (in case if you want to customize some of them later)
             routes.MapLocalizedRoute("Product",
                                      "{SeName}",
@@ -26,10 +31,7 @@ namespace Nop.Web.Infrastructure
                             new { controller = "Catalog", action = "Category" },
                             new[] { "Nop.Web.Controllers" });
 
-            routes.MapLocalizedRoute("NewsCategory",
-                            "{SeName}",
-                            new { controller = "News", action = "NewsItems" },
-                            new[] { "Nop.Web.Controllers" });
+        
 
             routes.MapLocalizedRoute("Manufacturer",
                             "{SeName}",

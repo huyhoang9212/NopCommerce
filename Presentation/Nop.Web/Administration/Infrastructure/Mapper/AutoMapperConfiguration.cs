@@ -231,6 +231,16 @@ namespace Nop.Admin.Infrastructure.Mapper
                     .ForMember(dest => dest.SubjectToAcl, mo => mo.Ignore())
                     .ForMember(dest => dest.AppliedDiscounts, mo => mo.Ignore())
                     .ForMember(dest => dest.LimitedToStores, mo => mo.Ignore());
+
+                //newscategory
+                cfg.CreateMap<NewsCategory, NewsCategoryModel>()
+                .ForMember(dest => dest.AllowCustomersToSelectPageSize, mo => mo.Ignore());
+
+                cfg.CreateMap<NewsCategoryModel, NewsCategory>();
+                
+
+
+
                 //manufacturer
                 cfg.CreateMap<Manufacturer, ManufacturerModel>()
                     .ForMember(dest => dest.AvailableManufacturerTemplates, mo => mo.Ignore())

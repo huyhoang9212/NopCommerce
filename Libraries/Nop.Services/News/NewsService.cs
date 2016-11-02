@@ -292,14 +292,25 @@ namespace Nop.Services.News
             throw new NotImplementedException();
         }
 
-        public IPagedList<NewsCategory> GetAllNewsCategory(           
+        public IPagedList<NewsCategory> GetAllNewsCategories(
+            string categoryName = "",
             int storeId = 0, 
             int pageIndex = 0, 
             int pageSize = int.MaxValue,
             bool showHidden = false)
         {
+            
+            
             var query = _newsCategoryRepository.Table;         
-                    
+            if(!showHidden)
+            {
+                query = query.Where(c => c.Published);
+            }        
+            if(!String.IsNullOrEmpty(categoryName))
+            {
+                query = query.Where(c => c.Name.Contains(categoryName));
+            }
+
             //Store mapping
             if (storeId > 0 && !_catalogSettings.IgnoreStoreLimitations)
             {

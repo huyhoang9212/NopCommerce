@@ -43,7 +43,7 @@
 @helper RenderNewsCategoryLine(NewsCategorySimpleModel newsCategory, int level)
 {
     <li>
-        <a href="@Url.RouteUrl("NewsCategory",new { SeName = newsCategory.SeName})">
+        <a href="@Url.RouteUrl("NewsCategory",new { generic_se_name = newsCategory.SeName})">
             @newsCategory.Name
         </a>
         @*<a href="@Url.RouteUrl("NewsCategoryByName",new { SeName = newsCategory.SeName, newscategoryid = newsCategory.Id})">

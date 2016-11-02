@@ -1,0 +1,21 @@
+﻿@model Nop.Admin.Models.News.NewsCategoryListModel
+
+@{ 
+    var defaultGridPageSize = EngineContext.Current.Resolve<Nop.Core.Domain.Common.AdminAreaSettings>().DefaultGridPageSize;
+    var gridPageSizes = EngineContext.Current.Resolve<Nop.Core.Domain.Common.AdminAreaSettings>().GridPageSizes;
+}
+
+
+@Html.AntiForgeryToken()
+
+<div class="content-header clearfix">
+    <h1 class="pull-left">
+        Manage news category
+    </h1>
+</div>
+
+<div class="content">
+    <div class="form-horizontal">
+
+    </div>
+</div>
