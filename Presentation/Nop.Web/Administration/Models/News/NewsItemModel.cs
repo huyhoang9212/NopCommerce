@@ -18,7 +18,11 @@ namespace Nop.Admin.Models.News
 
             SelectedStoreIds = new List<int>();
             AvailableStores = new List<SelectListItem>();
+            AvailableCategories = new List<SelectListItem>();
         }
+
+        [Display(Name = "Categories")]
+        public IList<SelectListItem> AvailableCategories { get; set; }
 
         [NopResourceDisplayName("Admin.ContentManagement.News.NewsItems.Fields.Language")]
         public int LanguageId { get; set; }

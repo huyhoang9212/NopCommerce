@@ -7798,7 +7798,7 @@
     <Value>News item</Value>
   </LocaleResource>
   <LocaleResource Name="Admin.ContentManagement.News.NewsItems">
-    <Value>News items</Value>
+    <Value>News items  sss</Value>
   </LocaleResource>
   <LocaleResource Name="Admin.ContentManagement.News.NewsItems.Added">
     <Value>The new news item has been added successfully.</Value>
@@ -7919,6 +7919,9 @@
   </LocaleResource>
   <LocaleResource Name="Admin.ContentManagement.News.NewsItems.Updated">
     <Value>The news item has been updated successfully.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.ContentManagement.News.NewsCategories">
+    <Value>News categories</Value>
   </LocaleResource>
   <LocaleResource Name="Admin.ContentManagement.Polls">
     <Value>Polls</Value>

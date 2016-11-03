@@ -125,6 +125,12 @@ namespace Nop.Admin.Controllers
             }
         }
 
+        [NonAction]
+        protected virtual void PrepareCategoriesModel(NewsItemModel model)
+        {
+
+        }
+
         #endregion
 
         #region News items
@@ -254,6 +260,8 @@ namespace Nop.Admin.Controllers
             PrepareLanguagesModel(model);
             //Store
             PrepareStoresMappingModel(model, newsItem, false);
+
+            //News categories
             return View(model);
         }
 
@@ -336,6 +344,7 @@ namespace Nop.Admin.Controllers
                 Data = categories.Select(x =>
                 {
                     var categoryModel = x.ToModel();
+                    categoryModel.BreadCrumb = x.GetFormattedBreadCrump(_newsCategoryService);
                     return categoryModel;
                 }),
                 Total = categories.TotalCount

@@ -299,9 +299,7 @@ namespace Nop.Services.News
             int pageSize = int.MaxValue,
             bool showHidden = false)
         {
-            
-            
-            var query = _newsCategoryRepository.Table;         
+            var query = _newsCategoryRepository.Table;
             if(!showHidden)
             {
                 query = query.Where(c => c.Published);
@@ -310,7 +308,7 @@ namespace Nop.Services.News
             {
                 query = query.Where(c => c.Name.Contains(categoryName));
             }
-
+            query = query.OrderBy(nc => nc.ParentCategoryId).ThenBy(c => c.DisplayOrder);
             //Store mapping
             if (storeId > 0 && !_catalogSettings.IgnoreStoreLimitations)
             {
@@ -329,6 +327,8 @@ namespace Nop.Services.News
                         select nGroup.FirstOrDefault();
                 query = query.OrderByDescending(n => n.CreatedOnUtc);
             }
+
+            //query = query.OrderBy(nc => nc.ParentCategoryId).GroupBy(nc => nc.ParentCategoryId);
 
             var newsCategories = new PagedList<NewsCategory>(query, pageIndex, pageSize);
             return newsCategories;
