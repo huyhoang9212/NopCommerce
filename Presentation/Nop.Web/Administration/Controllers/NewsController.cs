@@ -128,7 +128,19 @@ namespace Nop.Admin.Controllers
         [NonAction]
         protected virtual void PrepareCategoriesModel(NewsItemModel model)
         {
+            if (model == null)
+                throw new ArgumentNullException("model");
 
+            var categories = _newsCategoryService.GetAllNewsCategories().ToList();
+            foreach(var category in categories)
+            {
+                model.AvailableCategories.Add(new SelectListItem
+                {
+                    Text = category.GetFormattedBreadCrump(_newsCategoryService),
+                    Value = category.Id.ToString(),
+                    Selected = model.CategoryId == category.Id
+                });
+            }
         }
 
         #endregion
@@ -260,8 +272,9 @@ namespace Nop.Admin.Controllers
             PrepareLanguagesModel(model);
             //Store
             PrepareStoresMappingModel(model, newsItem, false);
-
             //News categories
+            PrepareCategoriesModel(model);
+
             return View(model);
         }
 
@@ -351,6 +364,13 @@ namespace Nop.Admin.Controllers
             };
 
             return Json(gridModel);
+        }
+
+        public ActionResult EditCategory(int id)
+        {
+            var category = _newsCategoryService.GetNewsCategoryById(id);
+            var model = category.ToModel();
+            return View(model);
         }
 
         #endregion

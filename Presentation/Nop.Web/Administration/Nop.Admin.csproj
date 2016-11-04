@@ -2142,6 +2142,7 @@
     <Content Include="Views\Common\AclDisabledWarning.cshtml" />
     <Content Include="Views\Common\MultistoreDisabledWarning.cshtml" />
     <Content Include="Views\News\ListCategories.cshtml" />
+    <Content Include="Views\News\EditCategory.cshtml" />
     <None Include="Views\Product\_ProductAttributes.cshtml" />
     <Content Include="Views\Setting\_ReturnRequestReasons.cshtml" />
     <Content Include="Views\Setting\ReturnRequestReasonEdit.cshtml" />

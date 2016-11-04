@@ -62,6 +62,15 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.CategoryId)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopDropDownListFor(model=> model.CategoryId, Model.AvailableCategories)
+                        @Html.ValidationMessageFor(model => model.CategoryId )
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
                         @Html.NopLabelFor(model => model.Short)
                     </div>
                     <div class="col-md-9">
